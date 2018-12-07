@@ -1,4 +1,6 @@
-# QRcodeLibrary
+# SDRQRcodeLibrary
+项目引用了 https://github.com/yipianfengye/android-zxingLibrary 库
+
 集成zxing二维码扫描和生成的库，自定义了扫描二维码的Activity
 
 ## gradle
