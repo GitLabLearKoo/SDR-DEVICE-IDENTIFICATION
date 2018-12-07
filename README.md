@@ -19,7 +19,9 @@ allprojects {
 ```
 module
 ```
-
+dependencies {
+    implementation 'com.github.HyfSunshine:SDRQRcodeLibrary:1.0'
+}
 ```
 
 ## 权限
