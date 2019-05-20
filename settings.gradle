@@ -1,1 +1,1 @@
-include ':app', ':QRcodeLibrary'
+include ':app', ':sdr-device-identification'
