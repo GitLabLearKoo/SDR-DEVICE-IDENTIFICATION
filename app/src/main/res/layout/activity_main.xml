@@ -10,9 +10,27 @@
         android:text="扫描二维码"
         android:onClick="openScan"/>
 
-    <TextView
-        android:id="@+id/main_textview"
+    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp" />
+        android:text="扫描NFC"
+        android:onClick="nfcScan"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="蓝牙地址"
+        android:onClick="bluetooth"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="wifi路由器mac地址"
+        android:onClick="wifiMac"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="生成二维码"
+        android:onClick="geneQRCode"/>
 </LinearLayout>
