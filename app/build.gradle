@@ -30,6 +30,6 @@ dependencies {
     }
 
     //
-    implementation 'com.github.sz-sdr.SDR-LIBRARY:sdr-library:2.0.1'
+    implementation 'com.github.sz-sdr:SDR-LIBRARY:2.1.0'
     implementation project(':sdr-device-identification')
 }

@@ -2,7 +2,7 @@ package com.sdr.qrcode;
 
 import android.app.Application;
 
-import com.sdr.lib.SDR;
+import com.sdr.lib.SDR_LIBRARY;
 
 /**
  * Created by HyFun on 2019/05/20.
@@ -14,6 +14,6 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        SDR.register(this, new ActivityConfig(getApplicationContext()));
+        SDR_LIBRARY.register(this, new ActivityConfig(getApplicationContext()));
     }
 }
