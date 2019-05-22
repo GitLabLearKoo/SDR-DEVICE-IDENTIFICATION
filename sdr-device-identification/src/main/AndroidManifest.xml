@@ -20,11 +20,12 @@
     <application>
         <activity
             android:name=".SDRScanQRCodeActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SDRIdentifyNFCActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

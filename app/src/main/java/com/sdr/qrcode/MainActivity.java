@@ -26,7 +26,8 @@ public class MainActivity extends BaseActivity {
     }
 
     public void openScan(View view) {
-        RxSDRDeviceIdentification.scan(getActivity())
+        RxSDRDeviceIdentification
+                .scan(getActivity())
                 .subscribe(new Consumer<Result<FragmentActivity>>() {
                     @Override
                     public void accept(Result<FragmentActivity> fragmentActivityResult) throws Exception {
@@ -63,7 +64,8 @@ public class MainActivity extends BaseActivity {
     }
 
     public void bluetooth(View view) {
-        RxSDRDeviceIdentification.bluetooth()
+        RxSDRDeviceIdentification
+                .bluetooth()
                 .subscribe(new Consumer<List<BluetoothDevice>>() {
                     @Override
                     public void accept(List<BluetoothDevice> bluetoothDevices) throws Exception {
@@ -82,7 +84,8 @@ public class MainActivity extends BaseActivity {
     }
 
     public void wifiMac(View view) {
-        RxSDRDeviceIdentification.wifi(getContext())
+        RxSDRDeviceIdentification
+                .wifi(getContext())
                 .subscribe(new Consumer<String>() {
                                @Override
                                public void accept(String s) throws Exception {

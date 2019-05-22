@@ -1,7 +1,7 @@
-# SDRQRcodeLibrary
+# SDR-DEVICE-IDENFICATION
 项目引用了 https://github.com/yipianfengye/android-zxingLibrary 库
 
-集成zxing二维码扫描和生成的库，自定义了扫描二维码的Activity
+集成zxing二维码扫描和生成的库，自定义了扫描二维码的Activity，集成NFC扫描标识Activity
 
 ## gradle
 project
@@ -20,36 +20,112 @@ allprojects {
 module
 ```
 dependencies {
-    implementation 'com.github.HyfSunshine:SDRQRcodeLibrary:1.0'
+    implementation 'com.github.sz-sdr:SDR-DEVICE-IDENTIFICATION:1.3.0'
 }
 ```
 
 ## 权限
+库中已经自动申请了权限，无需再手动申请，直接使用即可
 ```
-<uses-permission android:name="android.permission.CAMERA"/>
-<uses-permission android:name="android.permission.VIBRATE"/>
+<uses-permission android:name="android.permission.CAMERA" />
+<uses-permission android:name="android.permission.VIBRATE" />
+
+<!-- nfc 权限 -->
+<uses-permission android:name="android.permission.NFC" />
+<uses-feature
+    android:name="android.hardware.nfc"
+    android:required="true" />
+<!--蓝牙-->
+<uses-permission android:name="android.permission.BLUETOOTH" />
+<!--无线-->
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 ```
-CAMERA权限在Android6.0+是运行是权限，需要手动申请
 
 ## 使用
 
-1. 扫描二维码
+1. 扫描识别二维码
     ```
-    // 开启二维码扫描
-    QRScanActivity.start(this, 100);
+    RxSDRDeviceIdentification
+            .scan(getActivity())  // activity 或者 fragment
+            .subscribe(new Consumer<Result<FragmentActivity>>() {
+                @Override
+                public void accept(Result<FragmentActivity> fragmentActivityResult) throws Exception {
+                    // 使用自带的解析方法
+                    String code = RxSDRDeviceIdentification.Helper.getScanResult(fragmentActivityResult);
+                    if (code != null) {
+                        AlertUtil.showPositiveToast(code);
+                    }
+                }
+            }, new Consumer<Throwable>() {
+                @Override
+                public void accept(Throwable throwable) throws Exception {
+                    AlertUtil.showNegativeToastTop(throwable.getMessage());
+                }
+            });
     ```
 
-2. 扫描成功结果
+2. NFC识别功能
     ```
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100 && resultCode == RESULT_OK) {
-            Bundle bundle = data.getExtras();
-            String string = bundle.getString(CodeUtils.RESULT_STRING);
-            textView.setText(string);
-        }
-    }
+    RxSDRDeviceIdentification
+            .nfc(getActivity())   // activity 或者 fragment
+            .subscribe(new Consumer<Result<FragmentActivity>>() {
+                @Override
+                public void accept(Result<FragmentActivity> fragmentActivityResult) throws Exception {
+                    // 使用自带的Helper解析
+                    String code = RxSDRDeviceIdentification.Helper.getNfcResult(fragmentActivityResult);
+                    if (code != null) {
+                        AlertUtil.showPositiveToast(code);
+                    }
+                }
+            }, new Consumer<Throwable>() {
+                @Override
+                public void accept(Throwable throwable) throws Exception {
+                    AlertUtil.showNegativeToastTop(throwable.getMessage());
+                }
+            });
     ```
 
+3. 已连接蓝牙列表
+    ```
+    RxSDRDeviceIdentification
+            .bluetooth()
+            .subscribe(new Consumer<List<BluetoothDevice>>() {
+                @Override
+                public void accept(List<BluetoothDevice> bluetoothDevices) throws Exception {
+                    StringBuilder sb = new StringBuilder();
+                    for (BluetoothDevice device : bluetoothDevices) {
+                        sb.append(device.getName() + ">>>" + device.getAddress() + ">>>" + device.getBondState() + "\n");
+                    }
+                    AlertUtil.showPositiveToast(sb.toString());
+                }
+            }, new Consumer<Throwable>() {
+                @Override
+                public void accept(Throwable throwable) throws Exception {
+                    AlertUtil.showNegativeToastTop(throwable.getMessage());
+                }
+            });
+    ```
+4. 正在连接的WiFi MAC
+    ```
+    RxSDRDeviceIdentification
+            .wifi(getContext())
+            .subscribe(new Consumer<String>() {
+                           @Override
+                           public void accept(String s) throws Exception {
+                               AlertUtil.showPositiveToast(s);
+                           }
+                       },
+                    new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Exception {
+                            AlertUtil.showNegativeToastTop(throwable.getMessage());
+                        }
+                    });
+    ```
+
+5. 生成二维码
+    ```
+    Bitmap bitmap = RxSDRDeviceIdentification.createQRImage(content, 600);
+    ```
 
