@@ -21,7 +21,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    compileOnly 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
     //
     implementation 'com.github.sz-sdr:SDR-LIBRARY:2.1.0'
     // 二维码扫描
