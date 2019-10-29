@@ -21,11 +21,9 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:design:28.0.0'
     //
-    implementation 'com.github.sz-sdr:SDR-LIBRARY:2.2.5'
+    implementation 'com.github.sz-sdr:SDR-LIBRARY:2.2.6'
     // 二维码扫描
     implementation 'cn.yipianfengye.android:zxing-library:2.2'
-    // RxActivityResult
-    api 'com.github.VictorAlbertos:RxActivityResult:0.4.5-2.x'
 }
