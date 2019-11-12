@@ -86,7 +86,7 @@ public class SDRScanQRCodeActivity extends BaseActivity {
 
         @Override
         public void onAnalyzeFailed() {
-            AlertUtil.showNegativeToastTop("二维码/条形码识别失败");
+            AlertUtil.showNegativeToastTop("二维码/条形码识别失败","");
         }
     };
 

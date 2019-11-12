@@ -33,13 +33,13 @@ public class MainActivity extends BaseActivity {
                     public void accept(Result<FragmentActivity> fragmentActivityResult) throws Exception {
                         String code = RxSDRDeviceIdentification.Helper.getScanResult(fragmentActivityResult);
                         if (code != null) {
-                            AlertUtil.showPositiveToast(code);
+                            AlertUtil.showPositiveToastTop(code, "");
                         }
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        AlertUtil.showNegativeToastTop(throwable.getMessage());
+                        AlertUtil.showNegativeToastTop(throwable.getMessage(), "");
                     }
                 });
     }
@@ -52,13 +52,13 @@ public class MainActivity extends BaseActivity {
                     public void accept(Result<FragmentActivity> fragmentActivityResult) throws Exception {
                         String code = RxSDRDeviceIdentification.Helper.getNfcResult(fragmentActivityResult);
                         if (code != null) {
-                            AlertUtil.showPositiveToast(code);
+                            AlertUtil.showPositiveToastTop(code, "");
                         }
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        AlertUtil.showNegativeToastTop(throwable.getMessage());
+                        AlertUtil.showNegativeToastTop(throwable.getMessage(), "");
                     }
                 });
     }
@@ -73,12 +73,12 @@ public class MainActivity extends BaseActivity {
                         for (BluetoothDevice device : bluetoothDevices) {
                             sb.append(device.getName() + ">>>" + device.getAddress() + ">>>" + device.getBondState() + "\n");
                         }
-                        AlertUtil.showPositiveToast(sb.toString());
+                        AlertUtil.showPositiveToastTop(sb.toString(),"");
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        AlertUtil.showNegativeToastTop(throwable.getMessage());
+                        AlertUtil.showNegativeToastTop(throwable.getMessage(),"");
                     }
                 });
     }
@@ -89,13 +89,13 @@ public class MainActivity extends BaseActivity {
                 .subscribe(new Consumer<String>() {
                                @Override
                                public void accept(String s) throws Exception {
-                                   AlertUtil.showPositiveToast(s);
+                                   AlertUtil.showPositiveToastTop(s, "");
                                }
                            },
                         new Consumer<Throwable>() {
                             @Override
                             public void accept(Throwable throwable) throws Exception {
-                                AlertUtil.showNegativeToastTop(throwable.getMessage());
+                                AlertUtil.showNegativeToastTop(throwable.getMessage(), "");
                             }
                         });
     }

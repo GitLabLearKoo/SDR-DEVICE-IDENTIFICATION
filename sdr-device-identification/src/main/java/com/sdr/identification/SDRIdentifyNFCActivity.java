@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.sdr.lib.base.BaseActivity;
-import com.sdr.lib.rx.RxUtils;
+import com.sdr.lib.rx.RxUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -53,7 +53,7 @@ public class SDRIdentifyNFCActivity extends BaseActivity {
                     .title("提示")
                     .content("请先打开NFC功能后重试")
                     .positiveText("确定")
-                    .positiveColorRes(R.color.colorNegative)
+                    .positiveColorRes(R.color.colorError)
                     .cancelable(false)
                     .onPositive(new MaterialDialog.SingleButtonCallback() {
                         @Override
@@ -102,7 +102,7 @@ public class SDRIdentifyNFCActivity extends BaseActivity {
         switchStatus(扫描成功, str);
         Observable.just(str)
                 .delay(500, TimeUnit.MILLISECONDS)
-                .compose(RxUtils.<String>io_main())
+                .compose(RxUtil.<String>io_main())
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
@@ -151,17 +151,17 @@ public class SDRIdentifyNFCActivity extends BaseActivity {
                 break;
             case 设备不支持:
                 tvTitle.setText("设备不支持NFC");
-                tvTitle.setTextColor(getResources().getColor(R.color.colorNegative));
+                tvTitle.setTextColor(getResources().getColor(R.color.colorError));
                 tvDes.setText("检测到您的设备暂不支持NFC功能，请更换设备");
                 break;
             case 扫描失败:
                 tvTitle.setText("识别失败");
-                tvTitle.setTextColor(getResources().getColor(R.color.colorNegative));
+                tvTitle.setTextColor(getResources().getColor(R.color.colorError));
                 tvDes.setText("由于未知原因NFC扫描失败");
                 break;
             case 扫描成功:
                 tvTitle.setText("识别成功");
-                tvTitle.setTextColor(getResources().getColor(R.color.colorPositive));
+                tvTitle.setTextColor(getResources().getColor(R.color.colorError));
                 tvDes.setText("已成功识别NFC的标识，如下所示");
                 tvResult.setVisibility(View.VISIBLE);
                 tvResult.setText(code);
