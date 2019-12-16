@@ -3,6 +3,11 @@
 
 集成zxing二维码扫描和生成的库，自定义了扫描二维码的Activity，集成NFC扫描标识Activity
 
+![](/screenshoot/demo.gif)
+
+
+[demo-apk下载地址](/app/debug/app-debug.apk)
+
 ## gradle
 project
 ```

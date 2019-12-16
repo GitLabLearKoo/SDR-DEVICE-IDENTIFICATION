@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.widget.TextView;
 
 import com.sdr.identification.RxSDRDeviceIdentification;
 import com.sdr.lib.base.BaseActivity;
@@ -18,11 +19,14 @@ import rx_activity_result2.Result;
 public class MainActivity extends BaseActivity {
 
 
+    private TextView textView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle(getClass().getSimpleName());
+        textView = findViewById(R.id.text_view);
     }
 
     public void openScan(View view) {
@@ -50,9 +54,15 @@ public class MainActivity extends BaseActivity {
                 .subscribe(new Consumer<Result<FragmentActivity>>() {
                     @Override
                     public void accept(Result<FragmentActivity> fragmentActivityResult) throws Exception {
-                        String code = RxSDRDeviceIdentification.Helper.getNfcResult(fragmentActivityResult);
-                        if (code != null) {
-                            AlertUtil.showPositiveToastTop(code, "");
+                        int resultCode = fragmentActivityResult.resultCode();
+                        if (resultCode == RESULT_OK) {
+                            String code = RxSDRDeviceIdentification.Helper.getNfcResult(fragmentActivityResult);
+                            if (code != null) {
+                                AlertUtil.showPositiveToastTop(code, "");
+                                textView.setText(code);
+                            } else {
+                                AlertUtil.showNegativeToastTop("code码为空", "");
+                            }
                         }
                     }
                 }, new Consumer<Throwable>() {
@@ -73,12 +83,12 @@ public class MainActivity extends BaseActivity {
                         for (BluetoothDevice device : bluetoothDevices) {
                             sb.append(device.getName() + ">>>" + device.getAddress() + ">>>" + device.getBondState() + "\n");
                         }
-                        AlertUtil.showPositiveToastTop(sb.toString(),"");
+                        AlertUtil.showPositiveToastTop(sb.toString(), "");
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        AlertUtil.showNegativeToastTop(throwable.getMessage(),"");
+                        AlertUtil.showNegativeToastTop(throwable.getMessage(), "");
                     }
                 });
     }

@@ -33,4 +33,11 @@
         android:layout_height="wrap_content"
         android:text="生成二维码"
         android:onClick="geneQRCode"/>
+
+
+    <TextView
+        android:id="@+id/text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"/>
 </LinearLayout>
